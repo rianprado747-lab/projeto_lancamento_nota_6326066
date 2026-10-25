@@ -22,7 +22,12 @@ def tratar_tabela(tabela_alunos):
         for palavra in substituicoes:
             tabela_alunos[coluna] = tabela_alunos[coluna].str.replace(palavra, '0.0', regex=False)
         tabela_alunos[coluna] = pd.to_numeric(tabela_alunos[coluna], errors='coerce').fillna(0.0)
-
+    #limita as notas ao máximo de 10.0
+    tabela_alunos['Nota01'] = np.where(tabela_alunos['Nota01'] > 10.0, 10.0, tabela_alunos['Nota01'])
+    tabela_alunos['Nota02'] = np.where(tabela_alunos['Nota02'] > 10.0, 10.0, tabela_alunos['Nota02'])
+    #limita as notas do tf ao máximo de 2.0
+    tabela_alunos['TF01'] = np.where(tabela_alunos['TF01'] > 2.0, 2.0, tabela_alunos['TF01'])
+    tabela_alunos['TF02'] = np.where(tabela_alunos['TF02'] > 2.0, 2.0, tabela_alunos['TF02'])
     return tabela_alunos
 
 
